@@ -4,7 +4,6 @@ import 'package:mytodo/controller/Controller.dart';
 import 'package:mytodo/models/Task.dart';
 import 'package:mytodo/services/task_helper.dart';
 import 'package:mytodo/widgets/addTask.dart';
-import 'package:mytodo/widgets/cardlist.dart';
 
 import '../models/Ui.dart';
 
@@ -39,10 +38,11 @@ class _TaskWidgetState extends State<TaskWidget> {
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  if(snapshot.data!.isNotEmpty){
+                  if (snapshot.data!.isNotEmpty) {
                     List<Task> _list = snapshot.data!;
-                    _controller.tasks.value = _list..sort((a,b) =>a.id!.compareTo(b.id!));
-                  }else{
+                    _controller.tasks.value = _list
+                      ..sort((a, b) => a.id!.compareTo(b.id!));
+                  } else {
                     _controller.tasks.value = [];
                   }
                   return ListView(
@@ -55,23 +55,34 @@ class _TaskWidgetState extends State<TaskWidget> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 side:
-                                BorderSide(color: Colors.white, width: 1)),
+                                    BorderSide(color: Colors.white, width: 1)),
                             child: Row(
                               children: [
                                 Container(
-                                  child: Checkbox(
-                                    value: e.execute == 0 ? false : true,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        e.execute = value == true ? 1 : 0;
-                                      });
-                                      TaskHelper.updateTask(e).then((ans) {});
-                                    },
-                                    side: MaterialStateBorderSide.resolveWith(
-                                          (states) => BorderSide(
-                                          width: 1.0, color: Colors.white),
+                                  child: Column(children: [
+                                    Container(
+                                      // padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        e.id.toString(),
+                                        style: TextStyle(
+                                            fontSize: 15, color: Colors.indigo),
+                                      ),
                                     ),
-                                  ),
+                                    Container(
+                                        child: Checkbox(
+                                      value: e.execute == 0 ? false : true,
+                                      onChanged: (bool? value) {
+                                        setState(() {
+                                          e.execute = value == true ? 1 : 0;
+                                        });
+                                        TaskHelper.updateTask(e).then((ans) {});
+                                      },
+                                      side: MaterialStateBorderSide.resolveWith(
+                                        (states) => BorderSide(
+                                            width: 1.0, color: Colors.white),
+                                      ),
+                                    )),
+                                  ]),
                                 ),
                                 Expanded(
                                     child: InkWell(
@@ -83,35 +94,21 @@ class _TaskWidgetState extends State<TaskWidget> {
                                             padding: EdgeInsets.all(10),
                                             child: Column(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
-                                                Container(
-                                                  child: Text(
-                                                    e.id.toString(),
-                                                    textAlign:
-                                                    TextAlign.justify,
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                        FontWeight.bold,
-                                                        color: Colors.white),
-                                                  ),
-                                                  alignment:
-                                                  Alignment.centerLeft,
-                                                ),
                                                 Container(
                                                   child: Text(
                                                     e.title!,
                                                     textAlign:
-                                                    TextAlign.justify,
+                                                        TextAlign.justify,
                                                     style: TextStyle(
                                                         fontSize: 20,
                                                         fontWeight:
-                                                        FontWeight.bold,
+                                                            FontWeight.bold,
                                                         color: Colors.white),
                                                   ),
                                                   alignment:
-                                                  Alignment.centerLeft,
+                                                      Alignment.centerLeft,
                                                 ),
                                                 Container(
                                                   child: Text(
@@ -123,7 +120,7 @@ class _TaskWidgetState extends State<TaskWidget> {
                                                         color: Colors.white),
                                                   ),
                                                   alignment:
-                                                  Alignment.bottomRight,
+                                                      Alignment.bottomRight,
                                                 )
                                               ],
                                             ))))

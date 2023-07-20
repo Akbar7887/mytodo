@@ -57,19 +57,30 @@ class _HistoryWidgetState extends State<HistoryWidget> {
                             child: Row(
                               children: [
                                 Container(
-                                  child: Checkbox(
-                                    value: e.execute == 0 ? false : true,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        e.execute = value == true ? 1 : 0;
-                                      });
-                                      TaskHelper.updateTask(e).then((ans) {});
-                                    },
-                                    side: MaterialStateBorderSide.resolveWith(
-                                      (states) => BorderSide(
-                                          width: 1.0, color: Colors.white),
+                                  child: Column(children: [
+                                    Container(
+                                      // padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        e.id.toString(),
+                                        style: TextStyle(
+                                            fontSize: 15, color: Colors.indigo),
+                                      ),
                                     ),
-                                  ),
+                                    Container(
+                                        child: Checkbox(
+                                      value: e.execute == 0 ? false : true,
+                                      onChanged: (bool? value) {
+                                        setState(() {
+                                          e.execute = value == true ? 1 : 0;
+                                        });
+                                        TaskHelper.updateTask(e).then((ans) {});
+                                      },
+                                      side: MaterialStateBorderSide.resolveWith(
+                                        (states) => BorderSide(
+                                            width: 1.0, color: Colors.white),
+                                      ),
+                                    )),
+                                  ]),
                                 ),
                                 Expanded(
                                     child: InkWell(
@@ -83,20 +94,6 @@ class _HistoryWidgetState extends State<HistoryWidget> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                Container(
-                                                  child: Text(
-                                                    e.id.toString(),
-                                                    textAlign:
-                                                        TextAlign.justify,
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white),
-                                                  ),
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                ),
                                                 Container(
                                                   child: Text(
                                                     e.title!,
@@ -125,9 +122,12 @@ class _HistoryWidgetState extends State<HistoryWidget> {
                                                 )
                                               ],
                                             )))),
-                                ElevatedButton(
+                                Container(
+                                    padding: EdgeInsets.all(10),
+                                    child: ElevatedButton(
                                     onPressed: () async {
-                                      await TaskHelper.deleteTask(e).then((value) {
+                                      await TaskHelper.deleteTask(e)
+                                          .then((value) {
                                         TaskHelper.getAllTask(1).then((value) {
                                           setState(() {
                                             _controller.tasks.value = value!;
@@ -140,11 +140,11 @@ class _HistoryWidgetState extends State<HistoryWidget> {
                                                 RoundedRectangleBorder>(
                                             RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(20),
+                                                    BorderRadius.circular(30),
                                                 side: BorderSide(
                                                     color: Colors.white,
                                                     width: 1)))),
-                                    child: Text(S.of(context).delete))
+                                    child: Text(S.of(context).delete, style: TextStyle(fontSize: 30),)))
                               ],
                             ),
                           ));

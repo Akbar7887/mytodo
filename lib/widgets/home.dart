@@ -22,6 +22,7 @@ class Home extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.indigo,
           appBar: AppBar(
+            title: Text(S.of(context).mybook),
             bottom: TabBar(
                 labelStyle: TextStyle(fontWeight: FontWeight.bold),
                 tabs: [

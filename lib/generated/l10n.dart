@@ -129,6 +129,16 @@ class S {
       args: [],
     );
   }
+
+  /// `My book`
+  String get mybook {
+    return Intl.message(
+      'My book',
+      name: 'mybook',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

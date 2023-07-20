@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("-"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "history": MessageLookupByLibrary.simpleMessage("History"),
+        "mybook": MessageLookupByLibrary.simpleMessage("My book"),
         "pleasefillinthefield":
             MessageLookupByLibrary.simpleMessage("Просим заполнить поля"),
         "title": MessageLookupByLibrary.simpleMessage("Title"),

@@ -6,5 +6,6 @@
   "title": "Title",
   "description": "Description",
   "addyourtasks": "ADD YOUR TASK",
-  "pleasefillinthefield": "Просим заполнить поля"
+  "pleasefillinthefield": "Просим заполнить поля",
+  "delete": "-"
 }

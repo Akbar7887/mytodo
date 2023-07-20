@@ -4,6 +4,7 @@ import 'package:mytodo/controller/Controller.dart';
 import 'package:mytodo/models/Task.dart';
 import 'package:mytodo/services/task_helper.dart';
 import 'package:mytodo/widgets/addTask.dart';
+import 'package:mytodo/widgets/cardlist.dart';
 
 import '../models/Ui.dart';
 
@@ -54,7 +55,7 @@ class _TaskWidgetState extends State<TaskWidget> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 side:
-                                    BorderSide(color: Colors.white, width: 1)),
+                                BorderSide(color: Colors.white, width: 1)),
                             child: Row(
                               children: [
                                 Container(
@@ -67,7 +68,7 @@ class _TaskWidgetState extends State<TaskWidget> {
                                       TaskHelper.updateTask(e).then((ans) {});
                                     },
                                     side: MaterialStateBorderSide.resolveWith(
-                                      (states) => BorderSide(
+                                          (states) => BorderSide(
                                           width: 1.0, color: Colors.white),
                                     ),
                                   ),
@@ -82,7 +83,7 @@ class _TaskWidgetState extends State<TaskWidget> {
                                             padding: EdgeInsets.all(10),
                                             child: Column(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                               children: [
                                                 Container(
                                                   child: Text(
@@ -102,15 +103,15 @@ class _TaskWidgetState extends State<TaskWidget> {
                                                   child: Text(
                                                     e.title!,
                                                     textAlign:
-                                                        TextAlign.justify,
+                                                    TextAlign.justify,
                                                     style: TextStyle(
                                                         fontSize: 20,
                                                         fontWeight:
-                                                            FontWeight.bold,
+                                                        FontWeight.bold,
                                                         color: Colors.white),
                                                   ),
                                                   alignment:
-                                                      Alignment.centerLeft,
+                                                  Alignment.centerLeft,
                                                 ),
                                                 Container(
                                                   child: Text(
@@ -122,7 +123,7 @@ class _TaskWidgetState extends State<TaskWidget> {
                                                         color: Colors.white),
                                                   ),
                                                   alignment:
-                                                      Alignment.bottomRight,
+                                                  Alignment.bottomRight,
                                                 )
                                               ],
                                             ))))

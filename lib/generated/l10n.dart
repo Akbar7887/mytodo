@@ -119,6 +119,16 @@ class S {
       args: [],
     );
   }
+
+  /// `-`
+  String get delete {
+    return Intl.message(
+      '-',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

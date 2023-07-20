@@ -7,6 +7,10 @@ import 'package:mytodo/models/Task.dart';
 
 import '../generated/l10n.dart';
 import '../services/task_helper.dart';
+final _titleController = TextEditingController();
+final _descriptionController = TextEditingController();
+final _keyform = GlobalKey<FormState>();
+final Controller _controller = Get.find();
 
 class AddTask extends StatelessWidget {
 
@@ -14,10 +18,6 @@ class AddTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _titleController = TextEditingController();
-    final _descriptionController = TextEditingController();
-    final _keyform = GlobalKey<FormState>();
-    final Controller _controller = Get.put(Controller());
 
     if (_controller.task.value.id != null) {
       _titleController.text = _controller.task.value.title!;

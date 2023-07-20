@@ -7,21 +7,26 @@ import 'package:mytodo/models/Task.dart';
 
 import '../generated/l10n.dart';
 import '../services/task_helper.dart';
+
 final _titleController = TextEditingController();
 final _descriptionController = TextEditingController();
 final _keyform = GlobalKey<FormState>();
 final Controller _controller = Get.find();
 
 class AddTask extends StatelessWidget {
-
-  const AddTask({Key? key,}) : super(key: key);
+  const AddTask({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     if (_controller.task.value.id != null) {
       _titleController.text = _controller.task.value.title!;
       _descriptionController.text = _controller.task.value.description!;
+      // _titleController.selection = TextSelection.collapsed(offset: _titleController.text.length);
+    } else {
+      _titleController.clear();
+      _descriptionController.clear();
     }
 
     return Scaffold(
@@ -50,6 +55,7 @@ class AddTask extends StatelessWidget {
                         return S.of(context).pleasefillinthefield;
                       }
                     },
+                    cursorColor: Colors.white,
                     style: TextStyle(fontSize: 20, color: Colors.white),
                     decoration: InputDecoration(
                         fillColor: Colors.white,
@@ -78,6 +84,7 @@ class AddTask extends StatelessWidget {
                     //     return S.of(context).pleasefillinthefield;
                     //   }
                     // },
+                    cursorColor: Colors.white,
                     style: TextStyle(fontSize: 20, color: Colors.white),
                     decoration: InputDecoration(
                         fillColor: Colors.white,
@@ -118,11 +125,19 @@ class AddTask extends StatelessWidget {
                             description: _descriptionController.text,
                             createdate: DateTime.now().toString(),
                             execute: 0);
-                        await TaskHelper.addTask(task).then((value) {
-                          _controller
-                              .getTasks()
-                              .then((value) => Navigator.pop(context));
-                        });
+                        if (task.id == null) {
+                          await TaskHelper.addTask(task).then((value) {
+                            _controller
+                                .getTasks()
+                                .then((value) => Navigator.pop(context));
+                          });
+                        } else {
+                          await TaskHelper.updateTask(task).then((value) {
+                            _controller
+                                .getTasks()
+                                .then((value) => Navigator.pop(context));
+                          });
+                        }
                       },
                       child: Text(
                         S.of(context).add,

@@ -13,16 +13,13 @@ class Controller extends GetxController {
   }
 
   Future<List<Task>?> getTasks() async {
-    await TaskHelper.getAllTask().then((value) {
-      return  value;
+    await TaskHelper.getAllTask(0).then((value) {
+      return value;
     });
 
     return null;
   }
-
-
 }
-
 
 class HomeBindings extends Bindings {
   @override

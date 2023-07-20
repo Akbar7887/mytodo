@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mytodo/controller/Controller.dart';
+import 'package:mytodo/models/Task.dart';
 import 'package:mytodo/services/task_helper.dart';
 import 'package:mytodo/widgets/addTask.dart';
 
@@ -30,14 +31,19 @@ class _TaskWidgetState extends State<TaskWidget> {
           children: [
             Expanded(
                 child: FutureBuilder(
-              future: TaskHelper.getAllTask(),
+              future: TaskHelper.getAllTask(0),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  _controller.tasks.value = snapshot.data!;
+                  if(snapshot.data!.isNotEmpty){
+                    List<Task> _list = snapshot.data!;
+                    _controller.tasks.value = _list..sort((a,b) =>a.id!.compareTo(b.id!));
+                  }else{
+                    _controller.tasks.value = [];
+                  }
                   return ListView(
                     children: _controller.tasks.value.map((e) {
                       return Container(
@@ -78,6 +84,20 @@ class _TaskWidgetState extends State<TaskWidget> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
+                                                Container(
+                                                  child: Text(
+                                                    e.id.toString(),
+                                                    textAlign:
+                                                    TextAlign.justify,
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        color: Colors.white),
+                                                  ),
+                                                  alignment:
+                                                  Alignment.centerLeft,
+                                                ),
                                                 Container(
                                                   child: Text(
                                                     e.title!,

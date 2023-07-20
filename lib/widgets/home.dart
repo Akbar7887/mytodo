@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mytodo/models/Task.dart';
 import 'package:mytodo/widgets/addTask.dart';
+import 'package:mytodo/widgets/history_widget.dart';
 import 'package:mytodo/widgets/task_widget.dart';
 
 import '../controller/Controller.dart';
@@ -16,7 +17,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -33,7 +33,7 @@ class Home extends StatelessWidget {
                   )
                 ]),
           ),
-          body: TabBarView(children: [TaskWidget(), Container()]),
+          body: TabBarView(children: [TaskWidget(), HistoryWidget()]),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               // Navigator.pop(context);

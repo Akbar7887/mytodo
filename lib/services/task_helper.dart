@@ -15,9 +15,6 @@ class TaskHelper {
 
   static Future<int> addTask(Task task) async {
     final db = await _getDB();
-    // final List<Map<String, dynamic>> maps = await db.query("Task");
-    //
-    // task.id = maps.length + 1;
     return await db.insert("Task", task.toJson(),
         conflictAlgorithm: ConflictAlgorithm.replace);
   }

@@ -22,138 +22,158 @@ class _HistoryWidgetState extends State<HistoryWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          children: [
-            Expanded(
-                child: FutureBuilder(
-              future: TaskHelper.getAllTask(1),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  if (snapshot.data!.isNotEmpty) {
-                    List<Task> _list = snapshot.data!;
-                    _controller.tasks.value = _list
-                      ..sort((a, b) => a.id!.compareTo(b.id!));
-                  } else {
-                    _controller.tasks.value = [];
-                  }
-                  return ListView(
-                    children: _controller.tasks.value.map((e) {
-                      return Container(
-                          padding: EdgeInsets.all(5),
-                          height: MediaQuery.of(context).size.height / 9,
-                          child: Card(
-                            color: Colors.indigo[300],
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                side:
-                                    BorderSide(color: Colors.white, width: 1)),
-                            child: Row(
-                              children: [
-                                Container(
-                                  child: Column(children: [
-                                    Container(
-                                      // padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        e.id.toString(),
-                                        style: TextStyle(
-                                            fontSize: 15, color: Colors.indigo),
-                                      ),
-                                    ),
-                                    Container(
-                                        child: Checkbox(
-                                      value: e.execute == 0 ? false : true,
-                                      onChanged: (bool? value) {
-                                        setState(() {
-                                          e.execute = value == true ? 1 : 0;
-                                        });
-                                        TaskHelper.updateTask(e).then((ans) {});
-                                      },
-                                      side: MaterialStateBorderSide.resolveWith(
-                                        (states) => BorderSide(
-                                            width: 1.0, color: Colors.white),
-                                      ),
-                                    )),
-                                  ]),
-                                ),
-                                Expanded(
-                                    child: InkWell(
-                                        onTap: () {
-                                          _controller.task.value = e;
-                                          Get.to(AddTask());
-                                        },
-                                        child: Padding(
+    return FutureBuilder<List<Task>?>(
+      future: TaskHelper.getAllTask(1),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          if (snapshot.data!.isNotEmpty) {
+            List<Task> _list = snapshot.data!;
+            _controller.tasks.value = _list
+              ..sort((a, b) => a.id!.compareTo(b.id!));
+          } else {
+            _controller.tasks.value = [];
+          }
+          return Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                children: [
+                  Expanded(
+                      child: Obx(() => ListView(
+                            children: _controller.tasks.value.map((e) {
+                              return Container(
+                                  padding: EdgeInsets.all(5),
+                                  height:
+                                      MediaQuery.of(context).size.height / 9,
+                                  child: Card(
+                                    color: Colors.indigo[300],
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        side: BorderSide(
+                                            color: Colors.white, width: 1)),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          child: Column(children: [
+                                            Container(
+                                              // padding: EdgeInsets.all(10),
+                                              child: Text(
+                                                e.id.toString(),
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.indigo),
+                                              ),
+                                            ),
+                                            Container(
+                                                child: Checkbox(
+                                              value:
+                                                  e.execute == 0 ? false : true,
+                                              onChanged: (bool? value) {
+                                                setState(() {
+                                                  e.execute =
+                                                      value == true ? 1 : 0;
+                                                });
+                                                TaskHelper.updateTask(e)
+                                                    .then((ans) {});
+                                              },
+                                              side: MaterialStateBorderSide
+                                                  .resolveWith(
+                                                (states) => BorderSide(
+                                                    width: 1.0,
+                                                    color: Colors.white),
+                                              ),
+                                            )),
+                                          ]),
+                                        ),
+                                        Expanded(
+                                            child: InkWell(
+                                                onTap: () {
+                                                  _controller.task.value = e;
+                                                  Get.to(AddTask());
+                                                },
+                                                child: Padding(
+                                                    padding: EdgeInsets.all(10),
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Container(
+                                                          child: Text(
+                                                            e.title!,
+                                                            textAlign: TextAlign
+                                                                .justify,
+                                                            style: TextStyle(
+                                                                fontSize: 20,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                        ),
+                                                        Container(
+                                                          child: Text(
+                                                            Ui.dateFormat.format(
+                                                                DateTime.parse(e
+                                                                    .createdate!)),
+                                                            style: TextStyle(
+                                                                fontSize: 10,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          alignment: Alignment
+                                                              .bottomRight,
+                                                        )
+                                                      ],
+                                                    )))),
+                                        Container(
                                             padding: EdgeInsets.all(10),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  child: Text(
-                                                    e.title!,
-                                                    textAlign:
-                                                        TextAlign.justify,
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white),
-                                                  ),
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                ),
-                                                Container(
-                                                  child: Text(
-                                                    Ui.dateFormat.format(
-                                                        DateTime.parse(
-                                                            e.createdate!)),
-                                                    style: TextStyle(
-                                                        fontSize: 10,
-                                                        color: Colors.white),
-                                                  ),
-                                                  alignment:
-                                                      Alignment.bottomRight,
-                                                )
-                                              ],
-                                            )))),
-                                Container(
-                                    padding: EdgeInsets.all(10),
-                                    child: ElevatedButton(
-                                    onPressed: () async {
-                                      await TaskHelper.deleteTask(e)
-                                          .then((value) {
-                                        TaskHelper.getAllTask(1).then((value) {
-                                          setState(() {
-                                            _controller.tasks.value = value!;
-                                          });
-                                        });
-                                      });
-                                    },
-                                    style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                                side: BorderSide(
-                                                    color: Colors.white,
-                                                    width: 1)))),
-                                    child: Text(S.of(context).delete, style: TextStyle(fontSize: 30),)))
-                              ],
-                            ),
-                          ));
-                    }).toList(),
-                  );
-                }
-              },
-            ))
-          ],
-        ));
+                                            child: ElevatedButton(
+                                                onPressed: () async {
+                                                  await TaskHelper.deleteTask(e)
+                                                      .then((value) {
+                                                    TaskHelper.getAllTask(1)
+                                                        .then((value) {
+                                                      setState(() {
+                                                        _controller.tasks
+                                                            .value = value!;
+                                                      });
+                                                    });
+                                                  });
+                                                },
+                                                style: ButtonStyle(
+                                                    shape: MaterialStateProperty.all<
+                                                            RoundedRectangleBorder>(
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30),
+                                                            side: BorderSide(
+                                                                color: Colors
+                                                                    .white,
+                                                                width: 1)))),
+                                                child: Text(
+                                                  S.of(context).delete,
+                                                  style:
+                                                      TextStyle(fontSize: 30),
+                                                )))
+                                      ],
+                                    ),
+                                  ));
+                            }).toList(),
+                          )))
+                ],
+              ));
+        }
+      },
+    );
   }
 }

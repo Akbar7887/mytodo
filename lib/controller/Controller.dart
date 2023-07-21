@@ -12,9 +12,9 @@ class Controller extends GetxController {
     super.onInit();
   }
 
-  Future<List<Task>?> getTasks() async {
-    await TaskHelper.getAllTask(0).then((value) {
-      return value;
+  Future<List<Task>?> getTasks(int noExecute) async {
+    await TaskHelper.getAllTask(noExecute).then((value) {
+      return value!;
     });
 
     return null;

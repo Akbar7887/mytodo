@@ -127,15 +127,20 @@ class AddTask extends StatelessWidget {
                             execute: 0);
                         if (task.id == null) {
                           await TaskHelper.addTask(task).then((value) {
-                            _controller
-                                .getTasks()
-                                .then((value) => Navigator.pop(context));
+                            TaskHelper.getAllTask(0).then((list) {
+                              _controller.tasks.value  = list!;
+                              _controller.tasks.refresh();
+                              Navigator.pop(context);
+                            });
                           });
                         } else {
                           await TaskHelper.updateTask(task).then((value) {
-                            _controller
-                                .getTasks()
-                                .then((value) => Navigator.pop(context));
+                            TaskHelper.getAllTask(0).then((list) {
+                              _controller.tasks.value  = list!;
+                              _controller.tasks.refresh();
+
+                              Navigator.pop(context);
+                            });
                           });
                         }
                       },

@@ -39,13 +39,13 @@ class _TaskWidgetState extends State<TaskWidget> {
                   );
                 } else {
                   if (snapshot.data!.isNotEmpty) {
-                    List<Task> _list = snapshot.data!;
+                    List<Task> _list =snapshot.data!;
                     _controller.tasks.value = _list
                       ..sort((a, b) => a.id!.compareTo(b.id!));
                   } else {
                     _controller.tasks.value = [];
                   }
-                  return ListView(
+                  return _controller.tasks.value.length == 0 ?Container():ListView(
                     children: _controller.tasks.value.map((e) {
                       return Container(
                           padding: EdgeInsets.all(5),

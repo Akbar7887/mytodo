@@ -21,7 +21,7 @@ class Home extends StatelessWidget {
     return DefaultTabController(
         length: 2,
         child: Scaffold(
-          backgroundColor: Colors.indigo,
+          backgroundColor: Colors.indigo[900],
           appBar: AppBar(
             title: Text(S.of(context).mybook),
             bottom: TabBar(

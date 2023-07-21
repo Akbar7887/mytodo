@@ -37,11 +37,10 @@ class _TaskWidgetState extends State<TaskWidget> {
                           padding: EdgeInsets.all(5),
                           height: MediaQuery.of(context).size.height / 9,
                           child: Card(
-                            color: Colors.indigo[300],
+                            color: Colors.indigo[700],
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
-                                side:
-                                    BorderSide(color: Colors.white, width: 1)),
+                                ),
                             child: Row(
                               children: [
                                 Container(

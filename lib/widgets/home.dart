@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mytodo/models/Task.dart';
 import 'package:mytodo/widgets/addTask.dart';
 import 'package:mytodo/widgets/history_widget.dart';
@@ -10,7 +11,7 @@ import 'package:mytodo/widgets/task_widget.dart';
 import '../controller/Controller.dart';
 import '../generated/l10n.dart';
 
-final Controller _controller = Get.find();
+final Controller _controller = Get.put(Controller());
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class Home extends StatelessWidget {
                   )
                 ]),
           ),
-          body: TabBarView(children: [TaskWidget(), HistoryWidget()]),
+          body:  TabBarView(children: [TaskWidget(), HistoryWidget()]),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               // Navigator.pop(context);
@@ -55,6 +56,7 @@ class Home extends StatelessWidget {
 
   void addTask(BuildContext context) {
     _controller.task.value = Task();
+
     Get.to(AddTask());
     //Navigator.pushNamed(context, '/addtask');
   }

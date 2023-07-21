@@ -37,8 +37,7 @@ class MyApp extends StatelessWidget {
           // or simply save your changes to "hot reload" in a Flutter IDE).
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
-          primarySwatch: generateMaterialColor(Colors.blue),
-          backgroundColor: generateMaterialColor(Colors.blue)),
+          primarySwatch: generateMaterialColor(Color.fromARGB(0, 137, 123, 1))),
        // initialRoute: "/",
       initialBinding: HomeBindings(),
       getPages: [

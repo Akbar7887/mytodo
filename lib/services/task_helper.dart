@@ -32,7 +32,18 @@ class TaskHelper {
     return await db.delete("Task", where: 'id = ?', whereArgs: [task.id]);
   }
 
-  static Future<List<Task>?> getAllTask(int noExecute) async{
+  // static Future<List<Task>?> getAllTask(int noExecute) async{
+  //   final db = await _getDB();
+  //
+  //   final List<Map<String, dynamic>> maps = await db.query("Task");
+  //
+  //   if(maps.isEmpty){
+  //     return null;
+  //   }
+  //
+  //     return List.generate(maps.length, (index) => Task.fromJson(maps[index])).where((element) => element.execute == noExecute).toList();
+  // }
+  static Future<List<Task>?> getAllTaskAll() async{
     final db = await _getDB();
 
     final List<Map<String, dynamic>> maps = await db.query("Task");
@@ -41,7 +52,7 @@ class TaskHelper {
       return null;
     }
 
-      return List.generate(maps.length, (index) => Task.fromJson(maps[index])).where((element) => element.execute == noExecute).toList();
+    return List.generate(maps.length, (index) => Task.fromJson(maps[index])).toList();
   }
 
   static Future<void> deleteDB() async{

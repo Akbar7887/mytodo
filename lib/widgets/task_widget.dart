@@ -27,26 +27,12 @@ class _TaskWidgetState extends State<TaskWidget> {
     return Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: Column(
-          children: [
-            Expanded(
-                child: FutureBuilder<List<Task>?>(
-              future: TaskHelper.getAllTask(0),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  if (snapshot.data!.isNotEmpty) {
-                    List<Task> _list = snapshot.data!;
-                    _controller.tasks.value = _list
-                      ..sort((a, b) => a.id!.compareTo(b.id!));
-                  } else {
-                    _controller.tasks.value = [];
-                  }
-                  return ListView(
-                    children: _controller.tasks.value.map((e) {
+        child: Column(children: [
+          Expanded(
+              child: Obx(() => ListView(
+                    children: _controller.tasks.value
+                        .where((element) => element.execute == 0)
+                        .map((e) {
                       return Container(
                           padding: EdgeInsets.all(5),
                           height: MediaQuery.of(context).size.height / 9,
@@ -128,11 +114,7 @@ class _TaskWidgetState extends State<TaskWidget> {
                             ),
                           ));
                     }).toList(),
-                  );
-                }
-              },
-            ))
-          ],
-        ));
+                  )))
+        ]));
   }
 }

@@ -130,7 +130,7 @@ class AddTask extends StatelessWidget {
                         if (_controller.task.value.id == null) {
                           await TaskHelper.addTask(_controller.task.value)
                               .then((value) {
-                            TaskHelper.getAllTask(0).then((list) {
+                            TaskHelper.getAllTaskAll().then((list) {
                               _controller.tasks.value = list!;
                               // _controller.tasks.refresh();
 
@@ -144,7 +144,7 @@ class AddTask extends StatelessWidget {
                         } else {
                           await TaskHelper.updateTask(_controller.task.value)
                               .then((value) {
-                            TaskHelper.getAllTask(0).then((list) {
+                            TaskHelper.getAllTaskAll().then((list) {
                               _controller.tasks.value = list!;
                               // _controller.tasks.refresh();
 
